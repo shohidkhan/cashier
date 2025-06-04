@@ -29,7 +29,6 @@ class PlanController extends Controller
                 $product = Product::retrieve($plan->product_id);
                 // return $product;
                 $price = Price::retrieve($plan->stripe_id);
-
                 return [
                     'slug' => $plan->slug,
                     'product_name' => $product->name,
@@ -39,10 +38,10 @@ class PlanController extends Controller
                     'price_id' => $price->id,
                     'amount' => $price->unit_amount / 100,
                     'currency' => strtoupper($price->currency),
-                    'interval' => $price->recurring->interval ?? 'one-time',
+                    'interval' => $price->recurring->interval,
                 ];
-            });
+        });
             // return $planDetails;
-            return view('subscription.plans',compact('planDetails'));
+        return view('subscription.plans',compact('planDetails'));
     }
 }
